@@ -1,10 +1,11 @@
 
-# Virtual Cookbook
+# **Virtual Cookbook**
 
 A simple cookbook with your recipes filtered for your specific needs. Allows user to add, remove and filter recipe for
 requirements.
 
 ## Features:
+
 - Allows users to: add recipes, remove recipes, add prep time, add cooking time.
 - Includes a feature where users can enter a condition and provides all recipes that fulfill the condition
 - Allows user to view **ALL** recipes in the cookbook.
@@ -20,3 +21,12 @@ to cook.
 
 ## Target Audience
 People who have a passion for cooking and students who are abroad and require help in cooking. 
+
+
+## Forecasting User Actions:
+- As a user, I would want to add a recipe.
+- As a user, I would want to remove a recipe.
+- As a user, I would want to modify the recipe.
+- As a user, I would want to search recipes with a certain cooking time.
+- As a user, I would want to search recipes that I can cook with the entered ingredients.
+- As a user, I would want to view all my recipes.
