@@ -23,7 +23,7 @@ to cook.
 People who have a passion for cooking and students who are abroad and require help in cooking. 
 
 
-## Forecasting User Actions:
+## User Stories:
 - As a user, I would want to add a recipe.
 - As a user, I would want to remove a recipe.
 - As a user, I would want to modify the recipe.
