@@ -1,10 +1,22 @@
-# My Personal Project
 
-## A subtitle
+# Virtual Cookbook
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+A simple cookbook with your recipes filtered for your specific needs. Allows user to add, remove and filter recipe for
+requirements.
 
-An example of text with **bold** and *italic* fonts.  
+## Features:
+- Allows users to: add recipes, remove recipes, add prep time, add cooking time.
+- Includes a feature where users can enter a condition and provides all recipes that fulfill the condition
+- Allows user to view **ALL** recipes in the cookbook.
+- (Possible Idea): Rate your recipes to help you remember their taste or the cooking process.
+- Update recipes: makes changes to an already existing recipe.
+
+
+## Why this project?
+Cooking is one of the most important daily tasks that a lot of people skip due to the great amount of time required to 
+cook. As a university student who orders food way too much, I learned that if I make a cookbook with features to filter
+recipes depending on the ingredients I currently have or filters recipes depending on the amount of time I can allocate 
+to cook.
+
+## Target Audience
+People who have a passion for cooking and students who are abroad and require help in cooking. 
