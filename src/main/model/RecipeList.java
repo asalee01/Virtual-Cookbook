@@ -5,7 +5,6 @@ import java.util.*;
 public class RecipeList {
 
     private final List<Recipe> recipes;
-    private List<Recipe> filteredIngredientsRecipes;
 
     public RecipeList() {
         recipes = new ArrayList<>();
@@ -15,25 +14,45 @@ public class RecipeList {
         recipes.add(r);
     }
 
-    public void removeRecipe(Recipe r) {
-        recipes.remove(r);
+    public void removeRecipeByName(String r) {
+        for (int i = 0; i < recipes.size(); i++) {
+            if (recipes.get(i).getName().equals(r)) {
+                recipes.remove(i);
+                break;
+            }
+        }
     }
 
     public List<Recipe> allRecipes() {
         return recipes;
     }
 
-    public void modifyRecipe(Recipe recipe1, Recipe newRecipe) {
-        if (recipes.indexOf(recipe1) != -1) {
-            recipes.set(recipes.indexOf(recipe1), newRecipe);
+//    public void modifyRecipe(Recipe recipe1, Recipe newRecipe) {
+//        if (recipes.contains(recipe1)) {
+//            recipes.set(recipes.indexOf(recipe1), newRecipe);
+//        } else {
+//            addRecipes(newRecipe);
+//        }
+//    }
+//    //Change in ingredients
+
+    public void modifyRecipe(String name, Recipe realState) {
+        int index = -1;
+        for (int i = 0; i <= recipes.size(); i++) {
+            if (recipes.get(i).getName().equals(name)) {
+                index = i;
+            }
+        }
+        if (index == -1) {
+            addRecipes(realState);
         } else {
-            addRecipes(newRecipe);
+            recipes.set(index, realState);
         }
     }
 
     public List<Recipe> searchByCookingTime(int time) {
         List<Recipe> filteredTimeRecipes = new ArrayList<>();
-        for (Recipe r: recipes) {
+        for (Recipe r : recipes) {
             if (time <= r.getCookingTime()) {
                 filteredTimeRecipes.add(r);
             }
@@ -42,12 +61,20 @@ public class RecipeList {
     }
 
     public List<Recipe> searchByIngredients(List<String> i) {
-        filteredIngredientsRecipes = new ArrayList<>();
-        for (Recipe r: recipes) {
+         List<Recipe> filteredIngredientsRecipes = new ArrayList<>();
+        for (Recipe r : recipes) {
             if (r.getIngredients().containsAll(i)) {
                 filteredIngredientsRecipes.add(r);
             }
         }
         return filteredIngredientsRecipes;
+    }
+
+    public int getSize() {
+        return recipes.size();
+    }
+
+    public Recipe getRecipe(int r) {
+        return recipes.get(r);
     }
 }

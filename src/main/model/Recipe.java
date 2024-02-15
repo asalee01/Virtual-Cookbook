@@ -10,11 +10,18 @@ public class Recipe {
     private List<String> cookingInstructions;
     private int calories;
     private String description;
+    private boolean isHealthy;
 
 
-    public Recipe() {
-        ingredients = new ArrayList<>();
-        cookingInstructions = new ArrayList<>();
+    public Recipe(String name, List<String> ingredients, List<String> instructions, int prepTime,
+                  int cookTime, int cals, String description) {
+        this.recipeName = name;
+        this.ingredients = ingredients;
+        this.cookingInstructions = instructions;
+        this.prepTime = prepTime;
+        this.cookingTime = cookTime;
+        this.calories = cals;
+        this.description = description;
     }
 
     public List<String> getIngredients() {
@@ -63,6 +70,10 @@ public class Recipe {
 
     public int getCalories() {
         return calories;
+    }
+
+    public boolean getIsHealthy() {
+        return isHealthy;
     }
 
     public String getDescription() {
