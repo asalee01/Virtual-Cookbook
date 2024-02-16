@@ -111,8 +111,9 @@ public class VirtualCookbook {
     private void doModify() {
         System.out.println("Select which recipe you would like to change.");
         doView();
-
-        //shows all recipes and then select a certain recipe. Then replace it with modified version.
+        System.out.println("Enter the name of the recipe you want to change");
+        String name = input.next();
+        //listRec.modifyRecipe(name, );
     } //TODO: code this function such that it works.
 
 
@@ -146,37 +147,31 @@ public class VirtualCookbook {
         }
         if (selection.equals("i")) {
             System.out.println("Enter ingredients: ");
-            input.next();
-            System.out.println("Do you to add more ingredients? Type y for yes and n for no.");
             List<String> ingredients = checkInput();
-            for (Recipe r : listRec.allRecipes()) {
-                List<Recipe> filteredRecipes = listRec.searchByIngredients(ingredients);
-                return filteredRecipes;
-            }
+            List<Recipe> filteredRecipes = listRec.searchByIngredients(ingredients);
+            return filteredRecipes;
         } else {
             System.out.println("Enter cooking time :");
             int time = input.nextInt();
-            for (Recipe r : listRec.allRecipes()) {
-                List<Recipe> filteredRecipes = listRec.searchByCookingTime(time);
-                return filteredRecipes;
-            }
+            List<Recipe> filteredRecipes = listRec.searchByCookingTime(time);
+            return filteredRecipes;
         }
-        return null; //TODO: fix this error.
+        //TODO: fix this error. Doesn't return the recipe but function works.
     }
 
 
-    private List<String> checkInput() {
-        String result = input.next();
+    private List<String> checkInput2() {
         boolean keepGoing = true;
-        String ing = result;
         listIng = new ArrayList<>();
-        while (ing.equals("y")) {
+        while (keepGoing) {
             System.out.println("Add ingredients:");
-            ing = input.next();
-            ing = ing.toLowerCase();
-            listIng.add(ing);
+            String ingredient = input.next();
+            listIng.add(ingredient);
             System.out.println("Do you to add more ingredients? Type y for yes and n for no.");
-            checkInput();
+            String result = input.next();
+            if (result.equals("n")) {
+                keepGoing = false;
+            }
         }
         return listIng;
     }
@@ -193,6 +188,22 @@ public class VirtualCookbook {
             listInstruct.add(instruc);
             System.out.println("Do you to add more instructions? Type y for yes and n for no.");
             checkCookingInput();
+        }
+        return listInstruct;
+    }
+
+    private List<String> checkInput() {
+        String result = input.next();
+        boolean keepGoing = true;
+        String ingred = result;
+        listInstruct = new ArrayList<>();
+        while (ingred.equals("y")) {
+            System.out.println("Add ingredients:");
+            ingred = input.next();
+            ingred = ingred.toLowerCase();
+            listInstruct.add(ingred);
+            System.out.println("Do you to add more ingredients? Type y for yes and n for no.");
+            checkInput();
         }
         return listInstruct;
     }

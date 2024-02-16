@@ -10,7 +10,6 @@ public class Recipe {
     private List<String> cookingInstructions;
     private int calories;
     private String description;
-    private boolean isHealthy;
 
 
     public Recipe(String name, List<String> ingredients, List<String> instructions, int prepTime,
@@ -72,9 +71,6 @@ public class Recipe {
         return calories;
     }
 
-    public boolean getIsHealthy() {
-        return isHealthy;
-    }
 
     public String getDescription() {
         return description;

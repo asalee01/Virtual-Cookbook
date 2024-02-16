@@ -95,7 +95,7 @@ public class RecipeListTest {
         recipes.addRecipes(recipe2);
         recipes.addRecipes(recipe3);
         assertEquals(3, recipes.getSize());
-        recipes.removeRecipe(recipe3);
+        recipes.removeRecipeByName("Recipe3");
         assertEquals(2, recipes.getSize());
     }
 
@@ -105,9 +105,9 @@ public class RecipeListTest {
         recipes.addRecipes(recipe2);
         recipes.addRecipes(recipe3);
         assertEquals(3, recipes.getSize());
-        recipes.removeRecipe(recipe3);
+        recipes.removeRecipeByName("Recipe3");
         assertEquals(2, recipes.getSize());
-        recipes.removeRecipe(recipe1);
+        recipes.removeRecipeByName("Recipe1");
         assertEquals(1, recipes.getSize());
     }
 
@@ -162,8 +162,8 @@ public class RecipeListTest {
         recipes.addRecipes(recipe1);
         recipes.addRecipes(recipe2);
         recipes.addRecipes(recipe3);
-        recipesTime.add(recipe3);
         recipesTime.add(recipe2);
+        recipesTime.add(recipe3);
         assertEquals(recipesTime, recipes.searchByCookingTime(25));
     }
 

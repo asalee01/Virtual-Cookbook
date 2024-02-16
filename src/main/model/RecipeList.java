@@ -38,7 +38,7 @@ public class RecipeList {
 
     public void modifyRecipe(String name, Recipe realState) {
         int index = -1;
-        for (int i = 0; i <= recipes.size(); i++) {
+        for (int i = 0; i < recipes.size(); i++) {
             if (recipes.get(i).getName().equals(name)) {
                 index = i;
             }
@@ -53,18 +53,21 @@ public class RecipeList {
     public List<Recipe> searchByCookingTime(int time) {
         List<Recipe> filteredTimeRecipes = new ArrayList<>();
         for (Recipe r : recipes) {
-            if (time <= r.getCookingTime()) {
+            if (time >= r.getCookingTime()) {
                 filteredTimeRecipes.add(r);
             }
         }
         return filteredTimeRecipes;
     }
 
+
     public List<Recipe> searchByIngredients(List<String> i) {
-         List<Recipe> filteredIngredientsRecipes = new ArrayList<>();
-        for (Recipe r : recipes) {
-            if (r.getIngredients().containsAll(i)) {
-                filteredIngredientsRecipes.add(r);
+        List<Recipe> filteredIngredientsRecipes = new ArrayList<>();
+        for (String ing: i) {
+            for (Recipe r : recipes) {
+                if (r.getIngredients().contains(ing)) {
+                    filteredIngredientsRecipes.add(r);
+                }
             }
         }
         return filteredIngredientsRecipes;

@@ -8,28 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
     private Recipe recipe;
-    private List<String> instructions;
-    private List<String> ingredients;
-    private String description;
     private List<String> instructions2;
     private List<String> ingredients2;
     private String description2;
 
     @BeforeEach
     public void setup() {
-        instructions = new ArrayList<>();
-        instructions.add("Turn on stove");
-        instructions.add("Add ingredients");
-        instructions.add("Wait 10 minutes for it to cook");
-        instructions.add("Add spices to your preference.");
-        ingredients = new ArrayList<>();
-        ingredients.add("Egg");
-        ingredients.add("Bread");
-        ingredients.add("Cinnamon Powder");
-        ingredients.add("Sugar");
-        description = "Tasty Recipe";
-        recipe = new Recipe("Recipe1", ingredients, instructions, 15, 30, 900, description);
-
         instructions2 = new ArrayList<>();
         instructions2.add("Turn on stove");
         instructions2.add("Add ingredients");
@@ -41,21 +25,17 @@ public class RecipeTest {
         ingredients2.add("Spices");
         ingredients2.add("Chicken");
         description2 = "Tasty Recipe";
-        recipe = new Recipe("Recipe1", ingredients2, instructions2, 35, 40, 670, description);
+        recipe = new Recipe("Recipe2", ingredients2, instructions2, 35, 40, 670,
+                description2);
     }
     @Test
     public void testConstructor() {
-        assertEquals("Recipe1", recipe.getName());
+        assertEquals("Recipe2", recipe.getName());
         assertEquals(40, recipe.getCookingTime());
         assertEquals(35, recipe.getPrepTime());
         assertEquals(670, recipe.getCalories());
         assertEquals("Add ingredients", recipe.getCookingInstructions().get(1));
         assertEquals("Chicken", recipe.getIngredients().get(3));
+        assertEquals(description2, recipe.getDescription());
     }
-
-    @Test
-    public void testAddRecipe() {
-
-    }
-
 }
