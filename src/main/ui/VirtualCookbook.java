@@ -142,6 +142,7 @@ public class VirtualCookbook {
         }
     }
 
+
     private List<String> checkMakeListIng() {
         List<String> listIngred = new ArrayList<>();
         String ing = input.next();
