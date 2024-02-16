@@ -12,9 +12,14 @@ public class Recipe {
     private String description;
 
 
+    //EFFECTS: creates a recipe with a name, ingredients, instruction, preparation time, cooking time, calories
+    //         and a short description.
     public Recipe(String name, List<String> ingredients, List<String> instructions, int prepTime,
                   int cookTime, int cals, String description) {
         this.recipeName = name;
+        for (String i: ingredients) {
+            i.toLowerCase();
+        }
         this.ingredients = ingredients;
         this.cookingInstructions = instructions;
         this.prepTime = prepTime;
@@ -23,12 +28,9 @@ public class Recipe {
         this.description = description;
     }
 
+    //getters
     public List<String> getIngredients() {
         return ingredients;
-    }
-
-    public void setIngredients(String i) {
-        ingredients.add(i);
     }
 
     public String getName() {
@@ -47,6 +49,20 @@ public class Recipe {
         return cookingInstructions;
     }
 
+    public void setIngredients(String i) {
+        ingredients.add(i);
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    //setters
     public void setCookingInstructions(String ins) {
         cookingInstructions.add(ins);
     }
@@ -65,15 +81,6 @@ public class Recipe {
 
     public void setCalories(int cals) {
         calories = cals;
-    }
-
-    public int getCalories() {
-        return calories;
-    }
-
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDescription(String description) {

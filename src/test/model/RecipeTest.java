@@ -38,4 +38,10 @@ public class RecipeTest {
         assertEquals("Chicken", recipe.getIngredients().get(3));
         assertEquals(description2, recipe.getDescription());
     }
+
+//    @Test
+//    public void testSetters() {
+//        recipe.setIngredients("Milk");
+//        assertEquals("Milk", );
+//    }
 }
