@@ -224,12 +224,14 @@ public class RecipeListTest {
         assertEquals(recipesTime, recipes.searchByIngredients(ingredientsFiltered));
     }
 
-//    @Test
-//    public void testGetAllRecipe() {
-//        recipes.addRecipes(recipe1);
-//        recipes.addRecipes(recipe2);
-//        recipes.addRecipes(recipe3);
-//        assertEquals(recipes, recipes.getAllRecipes());
-//    }
+    @Test
+    public void testGetAllRecipe() {
+        recipes.addRecipes(recipe1);
+        recipes.addRecipes(recipe2);
+        recipes.addRecipes(recipe3);
+        assertEquals(recipe1, recipes.getAllRecipes().get(0));
+        assertEquals(recipe2, recipes.getAllRecipes().get(1));
+        assertEquals(recipe3, recipes.getAllRecipes().get(2));
+    }
 
 }
