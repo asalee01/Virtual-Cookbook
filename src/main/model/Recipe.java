@@ -2,6 +2,9 @@ package model;
 
 import java.util.*;
 
+
+//Recipe is a class that contains methods such that you are able to create a recipe with the specified parameters in the
+//constructor.
 public class Recipe {
     private String recipeName;
     private int cookingTime;
@@ -54,13 +57,21 @@ public class Recipe {
         return description;
     }
 
+
+    //REQUIRES: An instruction
+    //MODIFIES: this
+    //EFFECTS: adds specific instructions to the list of existing instructions.
     public void addCookingInstructions(String ins) {
         cookingInstructions.add(ins);
     }
 
+    //REQUIRES: An ingredient
+    //MODIFIES: this
+    //EFFECTS: adds specific ingredient to the list of existing ingredients.
     public void addIngredients(String i) {
         ingredients.add(i);
     }
+
 
     //setters
     public void setName(String name) {

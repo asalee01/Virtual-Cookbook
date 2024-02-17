@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+
+//Recipe List is basically a list of recipes and has methods that can fulfill all the user stroies mentioned.
 public class RecipeList {
 
     private final List<Recipe> recipes;
@@ -9,9 +11,7 @@ public class RecipeList {
     public RecipeList() {
         recipes = new ArrayList<>();
     }
-    // public RecipeList() {
-    //        recipes = new HashMap<>();
-    //    }
+
 
     //REQUIRES: A recipe
     //MODIFIES: this
@@ -30,21 +30,15 @@ public class RecipeList {
         for (int i = 0; i < recipes.size(); i++) {
             if (recipes.get(i).getName().equals(r)) {
                 recipes.remove(i);
+                System.out.println("Recipe has been Removed");
                 break;
+            } else {
+                System.out.println("No recipes found!!");
             }
         }
     }
 
 
-
-//    public void modifyRecipe(Recipe recipe1, Recipe newRecipe) {
-//        if (recipes.contains(recipe1)) {
-//            recipes.set(recipes.indexOf(recipe1), newRecipe);
-//        } else {
-//            addRecipes(newRecipe);
-//        }
-//    }
-//    //Change in ingredients
 
     //REQUIRES: A recipe name and the modified recipe.
     //MODIFIES: this

@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-//TODO: fix the issue with these tests.
+
+//Tests all branches and edge cases for methods implemented in RecipeList.
 public class RecipeListTest {
 
     private Recipe recipe1;
@@ -107,6 +108,16 @@ public class RecipeListTest {
         assertEquals(3, recipes.getSize());
         recipes.removeRecipeByName("Recipe3");
         assertEquals(2, recipes.getSize());
+    }
+
+    @Test
+    public void testRemoveNoRecipe() {
+        recipes.addRecipes(recipe1);
+        recipes.addRecipes(recipe2);
+        recipes.addRecipes(recipe3);
+        assertEquals(3, recipes.getSize());
+        recipes.removeRecipeByName("Recipe7");
+        assertEquals(3, recipes.getSize());
     }
 
     @Test

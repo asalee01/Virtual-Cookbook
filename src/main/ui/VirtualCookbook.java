@@ -4,17 +4,21 @@ import model.Recipe;
 import model.RecipeList;
 
 import java.util.*;
+//Virtual Cookbook UI, has all the main functionalities implemented (you can add, remove, modify recipes and search for
+//recipes using specific ingredients or a specified cooking time.)
 
+//EFFECTS: creates an instance of a virtual cookbook.
 public class VirtualCookbook {
 
-    private Recipe recipe;
     private Scanner input;
     private RecipeList listRec;
 
+    //EFFECTS: runs the cookbook instance.
     public VirtualCookbook() {
         runCookbook();
     }
 
+    //EFFECTS: runs the virtual cookbook.
     private void runCookbook() {
         boolean keepGoing = true;
         String text = null;
@@ -33,7 +37,8 @@ public class VirtualCookbook {
         System.out.println("\nHave a good day! Goodbye!");
     }
 
-    //MODIFIES: this
+
+    //REQUIRES: it requires the user to enter a specific string to run a command.
     //EFFECTS: takes user to specified request
     private void processCommand(String command) {
         switch (command) {
@@ -61,14 +66,19 @@ public class VirtualCookbook {
         }
     }
 
+
+    //EFFECTS: It creates an instance of a recipe list to store all the recipes entered by the user. Also, we
+    //         instantiate a new scanner that expects the user's input.
     private void instantiate() {
         listRec = new RecipeList();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
 
+
+    //EFFECTS: displays all the possible options the user can see and choose.
     private void displayMenu() {
-        System.out.println("Select from:");
+        System.out.println("\n\nSelect from:");
         System.out.println("add");
         System.out.println("remove");
         System.out.println("modify");
@@ -78,37 +88,53 @@ public class VirtualCookbook {
     }
 
     //MODIFIES: this
-    //EFFECTS: processes the input of adding a recipe.
+    //EFFECTS: processes the input of adding a recipe by making the user enter a new recipe.
     private void addRecipe() {
         listRec.addRecipes(makeRecipe());
+        System.out.println("Recipe has been added!");
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: It allows the user to remove the recipe of his choice, firstly all the recipes in the cookbook will be
+    //         shown and then the user can enter one of the recipe names and remove it.
     private void removeRecipe() {
         System.out.println("Select which recipe you want to remove.");
         doView();
         String name = input.next();
         listRec.removeRecipeByName(name);
-        System.out.println("Recipe has been Removed");
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: Gives user all the recipe names in the cookbook, then asks user to pick a recipe from that. Then,
+    //         prompts the user to create a new recipe to modify the recipe. (They could copy and paste the whole recipe
+    //         and make all the necessary modifications.)
     private void modifyRecipe() {
         System.out.println("Select which recipe you would like to change.");
         doView();
         System.out.println("\nEnter the name of the recipe you want to change");
         String name = input.next();
-        System.out.println("\nTo modify please enter a recipe that you would to substitute.");
+        System.out.println("\nTo modify please enter the name of the new recipe.");
         listRec.modifyRecipe(name, makeRecipe());
+        System.out.println("Modifications have been made to the list of recipes!");
     }
 
 
-    private List<Recipe> searchRecipe() {
+    //EFFECTS: this feature allows user to search for a recipe by a certain requirement, it outputs all the recipes that
+    //         fulfill the requirement.
+    private void searchRecipe() {
         List<Recipe> selectedRecipes = selectRecipe();
         if (selectedRecipes.isEmpty()) {
             System.out.println("No Recipes found!! Sorry!!");
         }
-        return selectedRecipes;
+        for (Recipe r : selectedRecipes) {
+            System.out.println(r.getName());
+        }
     }
 
+
+    //EFFECTS: outputs all the recipes' names in the cookbook.
     private void doView() {
         System.out.println("Here are all your recipes.");
         for (Recipe r : listRec.getAllRecipes()) {
@@ -116,25 +142,40 @@ public class VirtualCookbook {
         }
     }
 
+
+    //EFFECTS: it closes the cookbook and outputs a nice message.
     private void closeCookbook() {
         System.out.println("Goodbye!");
     }
 
 
+    //MODIFIES: selectedRecs (list of recipes)
+    //EFFECTS: It checks whether the user's input is one of the two, then calls for a helper.
     private List<Recipe> selectRecipe() {
         List<Recipe> selectedRecs = new ArrayList<>();
         String selection = "";
         while (!(selection.equals("i") || selection.equals("t"))) {
-            System.out.println("i for ingredients");
+            System.out.println("\ni for ingredients");
             System.out.println("t for cooking time");
             selection = input.next();
             selection = selection.toLowerCase();
-            selectedRecs = selectRecipeHelper(selection);
+            if (selection.equals("i") || selection.equals("t")) {
+                selectedRecs = selectRecipeHelper(selection);
+            } else {
+                System.out.println("Invalid Selection!! Please try again");
+            }
         }
         return selectedRecs;
-    } //if (selectedRecs.isEmpty())
+    }
 
+
+    //REQUIRES: It requires a string (the user's input)
+    //EFFECTS: it runs a specific method for each of the options. If it is "i" it will call another helper that takes in
+    //         a list of ingredients, then it wil return the list of recipes that contain these ingredients. If it is
+    //         "t" it will filter all the recipes using the searchByCookingTime method in RecipeList, then it returns a
+    //         list of recipes.
     private List<Recipe> selectRecipeHelper(String selection) {
+
         if (selection.equals("i")) {
             System.out.println("Enter ingredients: ");
             List<String> ingredients = checkMakeListIng();
@@ -143,34 +184,36 @@ public class VirtualCookbook {
             System.out.println("Enter cooking time :");
             int time = input.nextInt();
             return listRec.searchByCookingTime(time);
-            //TODO: fix this error. Doesn't return the recipe but function works.
         }
     }
 
 
+    //MODIFIES: listIngredients.
+    //EFFECTS: It prompts user for the specific ingredients they want to filter by, then outputs the list of
+    // ingredients.
     private List<String> checkMakeListIng() {
-        List<String> listIngred = new ArrayList<>();
+        List<String> listIngredients = new ArrayList<>();
         String ing = input.next().toLowerCase();
         boolean keepGoing = true;
         String ingredient = ing;
-        listIngred.add(ingredient);
+        listIngredients.add(ingredient);
         while (keepGoing) {
-            System.out.println("Do you want to add more ingredients? Type y for yes.");
+            System.out.println("Do you want to add more ingredients? Type y for yes any other input is considered"
+                    + " as a no.");
             String result = input.next();
             if (result.equals("y")) {
                 System.out.println("Add ingredients:");
-                ingredient = input.next();
-                ingredient = ingredient.toLowerCase();
-                System.out.println("Do you to add more ingredients? Type y for yes, anything else entered is considered"
-                        + "as a no.");
+                ingredient = input.next().toLowerCase();
             } else {
                 keepGoing = false;
             }
         }
-        return listIngred;
+        return listIngredients;
     }
 
-
+    //REQUIRES: an instruction from the user.
+    //MODIFIES: listInstruct
+    //EFFECTS: It prompts the user to add an arbitrary number of instructions then outputs it.
     private List<String> checkCookingInput(String instructions) {
         String result = input.next();
         boolean keepGoing = true;
@@ -193,6 +236,9 @@ public class VirtualCookbook {
         return listInstruct;
     }
 
+    //REQUIRES: an ingredient from the user.
+    //MODIFIES: listIngredients
+    //EFFECTS: It prompts the user to add an arbitrary number of ingredients then outputs it.
     private List<String> checkInput(String ing) {
         String result = input.next();
         boolean keepGoing = true;
@@ -208,7 +254,6 @@ public class VirtualCookbook {
                 System.out.println("Do you to add more ingredients? Type y for yes, anything else entered is considered"
                         + " as a no.");
                 ingredient = input.next();
-                //checkInput();
             } else {
                 keepGoing = false;
             }
@@ -216,27 +261,44 @@ public class VirtualCookbook {
         return listIngredients;
     }
 
+    //MODIFIES: recipe
+    //EFFECTS: It creates a new recipe by prompting the reader to enter its name, ingredients, instructions, prep time,
+    //         cooking time, calories, and a brief description.
     public Recipe makeRecipe() {
         System.out.println("Enter name of recipe");
-        String name = input.next(); //rec.setName(input.next());
+        String name = input.next();
+
+
         System.out.println("Enter ingredients of recipe");
-        String firstIng = input.next(); //rec.setIngredients(input.next());
-        System.out.println("Do you to add more ingredients? Type y for yes and n for no.");
-        List<String> ingredients = checkInput(firstIng); // check if y, if it is y then loop the ingredients
+        String firstIng = input.next();
+        System.out.println("Do you want to add more ingredients? Type y for yes any other input is considered"
+                + " as a no.");
+        List<String> ingredients = checkInput(firstIng);
+
+
         System.out.println("Enter instructions of recipe");
-        String firstInstruc = input.next(); //rec.setCookingInstructions(input.next());
-        System.out.println("Do you to add more instructions? Type y for yes and n for no.");
-        List<String> instructions = checkCookingInput(firstInstruc);// check if y, if it is y then loop the instructions
+        String firstInstruct = input.next();
+        System.out.println("Do you want to add more instructions? Type y for yes any other input is considered"
+                + " as a no.");
+        List<String> instructions = checkCookingInput(firstInstruct);
+
+
         System.out.println("Enter prep time (minutes) of recipe");
-        int prepTime = input.nextInt(); //rec.setPrepTime(input.nextInt());
+        int prepTime = input.nextInt();
+
+
         System.out.println("Enter cooking time (minutes) of recipe :");
-        int cookingTime = input.nextInt(); //rec.setCookingTime(input.nextInt());
+        int cookingTime = input.nextInt();
+
+
         System.out.println("Enter calories of recipe:");
-        int calories = input.nextInt(); //rec.setCalories(input.nextInt());
+        int calories = input.nextInt();
+
+
         System.out.println("Enter description of recipe:");
         String description = input.next();
-        System.out.println("Recipe has been added!");
+
+        Recipe recipe;
         return recipe = new Recipe(name, ingredients, instructions, prepTime, cookingTime, calories, description);
     }
 }
-

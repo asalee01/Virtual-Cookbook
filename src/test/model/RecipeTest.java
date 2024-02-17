@@ -6,6 +6,8 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+//Tests all branches and edge cases for methods implemented in Recipe.
 public class RecipeTest {
     private Recipe recipe;
     private List<String> instructions2;
