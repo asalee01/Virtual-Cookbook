@@ -39,7 +39,6 @@ public class RecipeList {
     }
 
 
-
     //REQUIRES: A recipe name and the modified recipe.
     //MODIFIES: this
     //EFFECTS: Finds the given name in the list and replaces it with the new Recipe. If not found, add it to the list.
