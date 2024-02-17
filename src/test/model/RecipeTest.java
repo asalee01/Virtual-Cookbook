@@ -39,9 +39,64 @@ public class RecipeTest {
         assertEquals(description2, recipe.getDescription());
     }
 
-//    @Test
-//    public void testSetters() {
-//        recipe.setIngredients("Milk");
-//        assertEquals("Milk", );
-//    }
+    @Test
+    public void testAddIngredientsOnce() {
+        recipe.addIngredients("Milk");
+        assertEquals("Milk", recipe.getIngredients().get(4));
+    }
+
+    @Test
+    public void testAddIngredientsManyTimes() {
+        recipe.addIngredients("Milk");
+        recipe.addIngredients("Banana");
+        recipe.addIngredients("Apple");
+        assertEquals("Milk", recipe.getIngredients().get(4));
+        assertEquals("Banana", recipe.getIngredients().get(5));
+        assertEquals("Apple", recipe.getIngredients().get(6));
+    }
+
+    @Test
+    public void testSetCalories() {
+        recipe.setCalories(690);
+        assertEquals(690, recipe.getCalories());
+    }
+
+    @Test
+    public void testAddInstructionsOnce() {
+        recipe.addCookingInstructions("Boil milk");
+        assertEquals("Boil milk", recipe.getCookingInstructions().get(4));
+    }
+
+
+    @Test
+    public void testSetIngredientsManyTimes() {
+        recipe.addCookingInstructions("Cook");
+        recipe.addCookingInstructions("Finish");
+        assertEquals("Cook", recipe.getCookingInstructions().get(4));
+        assertEquals("Finish", recipe.getCookingInstructions().get(5));
+    }
+
+    @Test
+    public void testSetName() {
+        recipe.setName("Test Recipe");
+        assertEquals("Test Recipe", recipe.getName());
+    }
+
+    @Test
+    public void testSetPrepTime() {
+        recipe.setPrepTime(5000);
+        assertEquals(5000, recipe.getPrepTime());
+    }
+
+    @Test
+    public void testSetCookTime() {
+        recipe.setCookingTime(5000);
+        assertEquals(5000, recipe.getCookingTime());
+    }
+
+    @Test
+    public void testSetDescription() {
+        recipe.setDescription("The best recipe in the world!");
+        assertEquals("The best recipe in the world!", recipe.getDescription());
+    }
 }

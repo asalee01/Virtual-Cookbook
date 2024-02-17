@@ -90,6 +90,16 @@ public class RecipeListTest {
     }
 
     @Test
+    public void testAddRepetitionRecipe() {
+        recipes.addRecipes(recipe1);
+        assertEquals(recipe1, recipes.getRecipe(0));
+        assertEquals(1, recipes.getSize());
+
+        recipes.addRecipes(recipe1);
+        assertEquals(1, recipes.getSize());
+    }
+
+    @Test
     public void testRemoveRecipe() {
         recipes.addRecipes(recipe1);
         recipes.addRecipes(recipe2);
@@ -109,6 +119,16 @@ public class RecipeListTest {
         assertEquals(2, recipes.getSize());
         recipes.removeRecipeByName("Recipe1");
         assertEquals(1, recipes.getSize());
+    }
+
+    @Test
+    public void testRemoveNoRecipes() {
+        recipes.addRecipes(recipe1);
+        recipes.addRecipes(recipe2);
+        recipes.addRecipes(recipe3);
+        assertEquals(3, recipes.getSize());
+        recipes.removeRecipeByName("Amazing");
+        assertEquals(3, recipes.getSize());
     }
 
     @Test
@@ -203,4 +223,13 @@ public class RecipeListTest {
         recipesTime.add(recipe2);
         assertEquals(recipesTime, recipes.searchByIngredients(ingredientsFiltered));
     }
+
+//    @Test
+//    public void testGetAllRecipe() {
+//        recipes.addRecipes(recipe1);
+//        recipes.addRecipes(recipe2);
+//        recipes.addRecipes(recipe3);
+//        assertEquals(recipes, recipes.getAllRecipes());
+//    }
+
 }

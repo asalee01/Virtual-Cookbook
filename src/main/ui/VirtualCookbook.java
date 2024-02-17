@@ -9,9 +9,6 @@ public class VirtualCookbook {
 
     private Recipe recipe;
     private Scanner input;
-
-    private List<String> listIng;
-    private List<String> listInstruct;
     private RecipeList listRec;
 
     public VirtualCookbook() {
@@ -39,20 +36,28 @@ public class VirtualCookbook {
     //MODIFIES: this
     //EFFECTS: takes user to specified request
     private void processCommand(String command) {
-        if (command.equals("add")) {
-            addRecipe();
-        } else if (command.equals("remove")) {
-            removeRecipe();
-        } else if (command.equals("modify")) {
-            modifyRecipe();
-        } else if (command.equals("search")) {
-            searchRecipe();
-        } else if (command.equals("view all")) {
-            doView();
-        } else if (command.equals("close cookbook")) {
-            closeCookbook();
-        } else {
-            System.out.println("Selection is invalid. Please type the option you want to select.");
+        switch (command) {
+            case "add":
+                addRecipe();
+                break;
+            case "remove":
+                removeRecipe();
+                break;
+            case "modify":
+                modifyRecipe();
+                break;
+            case "search":
+                searchRecipe();
+                break;
+            case "view all":
+                doView();
+                break;
+            case "close cookbook":
+                closeCookbook();
+                break;
+            default:
+                System.out.println("Selection is invalid. Please type the option you want to select.");
+                break;
         }
     }
 
@@ -127,7 +132,7 @@ public class VirtualCookbook {
             selectedRecs = selectRecipeHelper(selection);
         }
         return selectedRecs;
-    }
+    } //if (selectedRecs.isEmpty())
 
     private List<Recipe> selectRecipeHelper(String selection) {
         if (selection.equals("i")) {
@@ -145,7 +150,7 @@ public class VirtualCookbook {
 
     private List<String> checkMakeListIng() {
         List<String> listIngred = new ArrayList<>();
-        String ing = input.next();
+        String ing = input.next().toLowerCase();
         boolean keepGoing = true;
         String ingredient = ing;
         listIngred.add(ingredient);
@@ -166,12 +171,12 @@ public class VirtualCookbook {
     }
 
 
-
-    private List<String> checkCookingInput() {
+    private List<String> checkCookingInput(String instructions) {
         String result = input.next();
         boolean keepGoing = true;
         String instruction = result;
-        listInstruct = new ArrayList<>();
+        List<String> listInstruct = new ArrayList<>();
+        listInstruct.add(instructions);
         while (keepGoing) {
             if (instruction.equals("y")) {
                 System.out.println("Add instructions:");
@@ -179,8 +184,8 @@ public class VirtualCookbook {
                 instruction = instruction.toLowerCase();
                 listInstruct.add(instruction);
                 System.out.println("Do you to add more instructions? Type y for yes anything else entered is considered"
-                        + "as a no.");
-                checkCookingInput();
+                        + " as a no.");
+                instruction = input.next();
             } else {
                 keepGoing = false;
             }
@@ -188,38 +193,40 @@ public class VirtualCookbook {
         return listInstruct;
     }
 
-    private List<String> checkInput() {
+    private List<String> checkInput(String ing) {
         String result = input.next();
         boolean keepGoing = true;
         String ingredient = result;
-        listInstruct = new ArrayList<>();
+        List<String> listIngredients = new ArrayList<>();
+        listIngredients.add(ing.toLowerCase());
         while (keepGoing) {
             if (ingredient.equals("y")) {
                 System.out.println("Add ingredients:");
                 ingredient = input.next();
                 ingredient = ingredient.toLowerCase();
-                listInstruct.add(ingredient);
+                listIngredients.add(ingredient);
                 System.out.println("Do you to add more ingredients? Type y for yes, anything else entered is considered"
-                        + "as a no.");
-                checkInput();
+                        + " as a no.");
+                ingredient = input.next();
+                //checkInput();
             } else {
                 keepGoing = false;
             }
         }
-        return listInstruct;
+        return listIngredients;
     }
 
     public Recipe makeRecipe() {
         System.out.println("Enter name of recipe");
         String name = input.next(); //rec.setName(input.next());
         System.out.println("Enter ingredients of recipe");
-        input.next(); //rec.setIngredients(input.next());
+        String firstIng = input.next(); //rec.setIngredients(input.next());
         System.out.println("Do you to add more ingredients? Type y for yes and n for no.");
-        List<String> ingredients = checkInput(); // check if y, if it is y then loop the ingredients
+        List<String> ingredients = checkInput(firstIng); // check if y, if it is y then loop the ingredients
         System.out.println("Enter instructions of recipe");
-        input.next(); //rec.setCookingInstructions(input.next());
+        String firstInstruc = input.next(); //rec.setCookingInstructions(input.next());
         System.out.println("Do you to add more instructions? Type y for yes and n for no.");
-        List<String> instructions = checkCookingInput(); // check if y, if it is y then loop the instructions
+        List<String> instructions = checkCookingInput(firstInstruc);// check if y, if it is y then loop the instructions
         System.out.println("Enter prep time (minutes) of recipe");
         int prepTime = input.nextInt(); //rec.setPrepTime(input.nextInt());
         System.out.println("Enter cooking time (minutes) of recipe :");

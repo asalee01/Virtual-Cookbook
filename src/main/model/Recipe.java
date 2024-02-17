@@ -17,9 +17,6 @@ public class Recipe {
     public Recipe(String name, List<String> ingredients, List<String> instructions, int prepTime,
                   int cookTime, int cals, String description) {
         this.recipeName = name;
-        for (String i: ingredients) {
-            i.toLowerCase();
-        }
         this.ingredients = ingredients;
         this.cookingInstructions = instructions;
         this.prepTime = prepTime;
@@ -49,10 +46,6 @@ public class Recipe {
         return cookingInstructions;
     }
 
-    public void setIngredients(String i) {
-        ingredients.add(i);
-    }
-
     public int getCalories() {
         return calories;
     }
@@ -61,12 +54,15 @@ public class Recipe {
         return description;
     }
 
-
-    //setters
-    public void setCookingInstructions(String ins) {
+    public void addCookingInstructions(String ins) {
         cookingInstructions.add(ins);
     }
 
+    public void addIngredients(String i) {
+        ingredients.add(i);
+    }
+
+    //setters
     public void setName(String name) {
         recipeName = name;
     }
