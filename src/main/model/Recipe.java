@@ -1,11 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.util.*;
 
 
 //Recipe is a class that contains methods such that you are able to create a recipe with the specified parameters in the
 //constructor.
-public class Recipe {
+public class Recipe implements Writable {
     private String recipeName;
     private int cookingTime;
     private List<String> ingredients;
@@ -92,5 +95,18 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", recipeName);
+        json.put("ingredients", ingredients);
+        json.put("ingredients", ingredients);
+        json.put("instructions", cookingInstructions);
+        json.put("preparation time", prepTime);
+        json.put("cooking time", cookingTime);
+        json.put("description", description);
+        return json;
     }
 }

@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.util.*;
 
 
 //Recipe List is basically a list of recipes and has methods that can fulfill all the user stroies mentioned.
-public class RecipeList {
+public class RecipeList { //implements Writable {
 
     private final List<Recipe> recipes;
 
@@ -98,4 +101,13 @@ public class RecipeList {
     public List<Recipe> getAllRecipes() {
         return recipes;
     }
+
+    //MAKE IT SUCH THAT YOU CAN ADD THE RECIPES INDIVIDUALLY
+    // CALL THE toJson method in recipe class.
+//    @Override
+//    public JSONObject toJson() {
+//        JSONObject json = new JSONObject();
+//        json.put("recipe", );
+//        return json;
+//    }
 }
