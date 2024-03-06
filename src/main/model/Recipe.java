@@ -1,7 +1,7 @@
 package model;
 
 import org.json.JSONObject;
-import persistance.Writable;
+import persistence.Writable;
 
 import java.util.*;
 
@@ -106,6 +106,7 @@ public class Recipe implements Writable {
         json.put("instructions", cookingInstructions);
         json.put("preparation time", prepTime);
         json.put("cooking time", cookingTime);
+        json.put("calories", calories);
         json.put("description", description);
         return json;
     }

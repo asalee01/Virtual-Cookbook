@@ -2,7 +2,11 @@ package ui;
 
 import model.Recipe;
 import model.RecipeList;
+import persistence.JSonReader;
+import persistence.JSonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 //Virtual Cookbook UI, has all the main functionalities implemented (you can add, remove, modify recipes and search for
 //recipes using specific ingredients or a specified cooking time.)
@@ -10,11 +14,16 @@ import java.util.*;
 //EFFECTS: creates an instance of a virtual cookbook.
 public class VirtualCookbook {
 
+    private static final String JSON_STORE = "./data/workroom.json";
     private Scanner input;
     private RecipeList listRec;
+    private JSonWriter jsonWriter;
+    private JSonReader jsonReader;
 
     //EFFECTS: runs the cookbook instance.
     public VirtualCookbook() {
+        jsonWriter = new JSonWriter(JSON_STORE);
+        jsonReader = new JSonReader(JSON_STORE);
         runCookbook();
     }
 
@@ -41,28 +50,24 @@ public class VirtualCookbook {
     //REQUIRES: it requires the user to enter a specific string to run a command.
     //EFFECTS: takes user to specified request
     private void processCommand(String command) {
-        switch (command) {
-            case "add":
-                addRecipe();
-                break;
-            case "remove":
-                removeRecipe();
-                break;
-            case "modify":
-                modifyRecipe();
-                break;
-            case "search":
-                searchRecipe();
-                break;
-            case "view all":
-                doView();
-                break;
-            case "close cookbook":
-                closeCookbook();
-                break;
-            default:
-                System.out.println("Selection is invalid. Please type the option you want to select.");
-                break;
+        if (command.equals("add")) {
+            addRecipe();
+        } else if (command.equals("remove")) {
+            removeRecipe();
+        } else if (command.equals("modify")) {
+            modifyRecipe();
+        } else if (command.equals("search")) {
+            searchRecipe();
+        } else if (command.equals("view all")) {
+            doView();
+        } else if (command.equals("load")) {
+            loadRecipes();
+        } else if (command.equals("save")) {
+            saveRecipes();
+        } else if (command.equals("close cookbook")) {
+            closeCookbook();
+        } else {
+            System.out.println("Selection is invalid. Please type the option you want to select.");
         }
     }
 
@@ -84,6 +89,8 @@ public class VirtualCookbook {
         System.out.println("modify");
         System.out.println("search");
         System.out.println("view all");
+        System.out.println("load");
+        System.out.println("save");
         System.out.println("close cookbook");
     }
 
@@ -103,6 +110,7 @@ public class VirtualCookbook {
         doView();
         String name = input.next();
         listRec.removeRecipeByName(name);
+        System.out.println("Changes have been made");
     }
 
 
@@ -300,5 +308,28 @@ public class VirtualCookbook {
 
         Recipe recipe;
         return recipe = new Recipe(name, ingredients, instructions, prepTime, cookingTime, calories, description);
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveRecipes() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(listRec);
+            jsonWriter.close();
+            System.out.println("Saved to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadRecipes() {
+        try {
+            listRec = jsonReader.read();
+            System.out.println("Loaded saved recipes");
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

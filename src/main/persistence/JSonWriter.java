@@ -1,13 +1,15 @@
-package persistance;
+package persistence;
 
-import model.Recipe;
 import model.RecipeList;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+// Referenced from the JsonSerialization Demo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JSonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;

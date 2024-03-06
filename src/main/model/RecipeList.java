@@ -1,13 +1,14 @@
 package model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
-import persistance.Writable;
+import persistence.Writable;
 
 import java.util.*;
 
 
-//Recipe List is basically a list of recipes and has methods that can fulfill all the user stroies mentioned.
-public class RecipeList { //implements Writable {
+//Recipe List is basically a list of recipes and has methods that can fulfill all the user stories mentioned.
+public class RecipeList implements Writable {
 
     private final List<Recipe> recipes;
 
@@ -33,14 +34,10 @@ public class RecipeList { //implements Writable {
         for (int i = 0; i < recipes.size(); i++) {
             if (recipes.get(i).getName().equals(r)) {
                 recipes.remove(i);
-                System.out.println("Recipe has been Removed");
                 break;
-            } else {
-                System.out.println("No recipes found!!");
             }
         }
     }
-
 
 
     //REQUIRES: A recipe name and the modified recipe.
@@ -104,10 +101,18 @@ public class RecipeList { //implements Writable {
 
     //MAKE IT SUCH THAT YOU CAN ADD THE RECIPES INDIVIDUALLY
     // CALL THE toJson method in recipe class.
-//    @Override
-//    public JSONObject toJson() {
-//        JSONObject json = new JSONObject();
-//        json.put("recipe", );
-//        return json;
-//    }
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("recipes", recipesToJson());
+        return json;
+    }
+
+    public JSONArray recipesToJson() {
+        JSONArray allRecipe = new JSONArray();
+        for (Recipe r: recipes) {
+            allRecipe.put(r.toJson());
+        }
+        return allRecipe;
+    }
 }
