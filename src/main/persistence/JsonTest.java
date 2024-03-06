@@ -13,6 +13,7 @@ public class JsonTest {
         assertEquals(instructions, recipe.getCookingInstructions());
         assertEquals(prepTime, recipe.getPrepTime());
         assertEquals(cookTime, recipe.getCookingTime());
+        assertEquals(cals, recipe.getCalories());
         assertEquals(description, recipe.getDescription());
     }
 }

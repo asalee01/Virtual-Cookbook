@@ -1,0 +1,12 @@
+{"recipes": [{
+    "instructions": ["Ins1"],
+    "preparation time": 100,
+    "cooking time": 20,
+    "name": "Rec2",
+    "ingredients": [
+        "ing1",
+        "ing2"
+    ],
+    "description": "Yummy",
+    "calories": 900
+}]}
