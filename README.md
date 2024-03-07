@@ -31,4 +31,4 @@ People who have a passion for cooking and students who are abroad and require he
 - As a user, I would want to search recipes that I can cook with the entered ingredients.
 - As a user, I would want to view all my recipes.
 - As a user, I want to save all the recipes I added and modified.
-- As a user, I want to be able to load all the recipes in my cookbook.
+- As a user, I want to be able to add recipes alongside the ones I already have saved.
