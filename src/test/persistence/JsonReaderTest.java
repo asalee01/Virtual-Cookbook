@@ -4,7 +4,6 @@ import model.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 

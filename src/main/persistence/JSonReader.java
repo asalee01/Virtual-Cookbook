@@ -13,24 +13,24 @@ import org.json.*;
 
 // Referenced from the JsonSerialization Demo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-// Represents a reader that reads workroom from JSON data stored in file
+// It is a reader that reads the workroom data stored in file.
 public class JSonReader {
     private String source;
 
-    // EFFECTS: constructs reader to read from source file
+    // EFFECTS: creates a reader that reads the source of the file.
     public JSonReader(String source) {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
-    // throws IOException if an error occurs reading data from file
+    // EFFECTS: reads the workroom file and outputs the file's information.
+    // throws IOException.
     public RecipeList read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseRecipeList(jsonObject);
     }
 
-    // EFFECTS: reads source file as string and returns it
+    // EFFECTS:takes in the source as a string and reads that file.
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
@@ -40,15 +40,15 @@ public class JSonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses workroom and returns the workroom.
     private RecipeList parseRecipeList(JSONObject jsonObject) {
         RecipeList rl = new RecipeList();
         addRecipes(rl, jsonObject);
         return rl;
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // MODIFIES: (RecipeList) rl
+    // EFFECTS: parses recipe list from Json and adds them to workroom
     private void addRecipes(RecipeList rl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("recipes");
         for (Object json : jsonArray) {
@@ -57,8 +57,8 @@ public class JSonReader {
         }
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // MODIFIES: (Recipe List) rl
+    // EFFECTS: parses recipe from Json and adds them to workroom.
     private void addRecipe(RecipeList rl, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         JSONArray ingredientsArray = jsonObject.getJSONArray("ingredients");
