@@ -1,0 +1,26 @@
+{"recipes": [
+    {
+        "instructions": ["ins"],
+        "preparation time": 100,
+        "cooking time": 200,
+        "name": "Rec1",
+        "ingredients": ["ing"],
+        "description": "no",
+        "calories": 200
+    },
+    {
+        "instructions": [
+            "Ins1",
+            "ins2"
+        ],
+        "preparation time": 10,
+        "cooking time": 29,
+        "name": "Recipe2",
+        "ingredients": [
+            "ing1",
+            "ing2"
+        ],
+        "description": "no",
+        "calories": 300
+    }
+]}

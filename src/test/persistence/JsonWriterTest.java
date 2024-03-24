@@ -28,12 +28,12 @@ public class JsonWriterTest extends JsonTest {
     void testWriterEmptyWorkroom() {
         try {
             RecipeList rl = new RecipeList();
-            JSonWriter writer = new JSonWriter("./data/testWriterEmptyWorkroom.json");
+            JSonWriter writer = new JSonWriter("./data/testWriterEmptyCookbook.json");
             writer.open();
             writer.write(rl);
             writer.close();
 
-            JSonReader reader = new JSonReader("./data/testWriterEmptyWorkroom.json");
+            JSonReader reader = new JSonReader("./data/testWriterEmptyCookbook.json");
             rl = reader.read();
 //            assertEquals(0, .numThingies());
         } catch (IOException e) {
@@ -47,12 +47,12 @@ public class JsonWriterTest extends JsonTest {
             RecipeList rl = new RecipeList();
             rl.addRecipes(newRecipe1());
             rl.addRecipes(newRecipe2());
-            JSonWriter writer = new JSonWriter("./data/testWriterGeneralWorkroom.json");
+            JSonWriter writer = new JSonWriter("./data/testWriterGeneralCookbook.json");
             writer.open();
             writer.write(rl);
             writer.close();
 
-            JSonReader reader = new JSonReader("./data/testWriterGeneralWorkroom.json");
+            JSonReader reader = new JSonReader("./data/testWriterGeneralCookbook.json");
             rl = reader.read();
             List<Recipe> recipes = rl.getAllRecipes();
             assertEquals(2, recipes.size());

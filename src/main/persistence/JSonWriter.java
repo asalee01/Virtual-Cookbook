@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 
 // Referenced from the JsonSerialization Demo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-// Creates a writer that writes the workroom file with Json data.
+// Creates a writer that writes the recipe file with Json data.
 public class JSonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
@@ -27,7 +27,7 @@ public class JSonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of recipe save to file
     public void write(RecipeList rl) {
         JSONObject json = rl.toJson();
         saveToFile(json.toString(TAB));

@@ -13,7 +13,7 @@ import org.json.*;
 
 // Referenced from the JsonSerialization Demo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-// It is a reader that reads the workroom data stored in file.
+// It is a reader that reads the recipe data stored in file.
 public class JSonReader {
     private String source;
 
@@ -22,7 +22,7 @@ public class JSonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads the workroom file and outputs the file's information.
+    // EFFECTS: reads the recipe file and outputs the file's information.
     // throws IOException.
     public RecipeList read() throws IOException {
         String jsonData = readFile(source);
@@ -40,7 +40,7 @@ public class JSonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom and returns the workroom.
+    // EFFECTS: parses recipe and returns the recipe.
     private RecipeList parseRecipeList(JSONObject jsonObject) {
         RecipeList rl = new RecipeList();
         addRecipes(rl, jsonObject);
@@ -48,7 +48,7 @@ public class JSonReader {
     }
 
     // MODIFIES: (RecipeList) rl
-    // EFFECTS: parses recipe list from Json and adds them to workroom
+    // EFFECTS: parses recipe list from Json and adds them to recipe
     private void addRecipes(RecipeList rl, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("recipes");
         for (Object json : jsonArray) {
@@ -58,7 +58,7 @@ public class JSonReader {
     }
 
     // MODIFIES: (Recipe List) rl
-    // EFFECTS: parses recipe from Json and adds them to workroom.
+    // EFFECTS: parses recipe from Json and adds them to recipe.
     private void addRecipe(RecipeList rl, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         JSONArray ingredientsArray = jsonObject.getJSONArray("ingredients");
