@@ -51,7 +51,6 @@ public class GraphicalUserInterface {
         createFrame();
         jsonWriter = new JSonWriter(JSON_STORE);
         jsonReader = new JSonReader(JSON_STORE);
-        //panel = new JPanel();
     }
 
     private void createButtons() {
@@ -64,28 +63,27 @@ public class GraphicalUserInterface {
         saveButton = new JButton("Save recipes");
     }
 
-    private void createOutputPanel() {
+    private JPanel createOutputPanel() {
         outputPanel = new JPanel(new GridBagLayout());
         outputPanel.setBorder(BorderFactory.createTitledBorder("Results"));
+        return outputPanel;
     }
 
-    public void createFrame() {
+    public JFrame createFrame() {
         cookbookFrame = new JFrame();
         cookbookFrame.add(cookbookPanel, BorderLayout.LINE_START);
         cookbookFrame.add(outputPanel, BorderLayout.CENTER);
-        cookbookFrame.setSize(500, 500);
+        cookbookFrame.setSize(750, 750);
         cookbookFrame.setLocation(300, 300);
         cookbookFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cookbookFrame.setTitle("Virtual Cookbook");
         cookbookFrame.setVisible(true);
-        cookbookFrame.pack();
-        cookbookFrame.setLocationRelativeTo(null);
-        cookbookFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        return cookbookFrame;
     }
 
-    public void createButtonPanel() {
+    public JPanel createButtonPanel() {
         cookbookPanel = new JPanel();
-        cookbookPanel.setBorder(BorderFactory.createTitledBorder("Box Layout"));
+        cookbookPanel.setBorder(BorderFactory.createTitledBorder("Choices"));
         Box buttons = Box.createVerticalBox();
         buttons.add(addButton);
         buttons.add(removeButton);
@@ -96,6 +94,7 @@ public class GraphicalUserInterface {
         buttons.add(saveButton);
         cookbookPanel.add(buttons);
         allActionButtons();
+        return cookbookPanel;
     }
 
     private void allActionButtons() {
@@ -109,36 +108,33 @@ public class GraphicalUserInterface {
     }
 
     private void addButtonAction() {
-        removeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addRecipe();
-            }
-        });
+        addButton.addActionListener(e -> addRecipe());
     }
 
     public void addRecipe() {
-        makeRecipe();
+        createTextFields();
         createAddRecipePanel();
-        JButton adding = new JButton("Submit");
-        adding.addActionListener(new ActionListener() {
+        JButton submitButton = new JButton("Submit");
+        panel.add(submitButton, BorderLayout.SOUTH);
+        submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parseRecipe();
+                Recipe recipe = parseRecipe();
+                if (recipe != null) {
+                    listRec.addRecipes(recipe);
+                }
             }
         });
-        listRec.addRecipes(parseRecipe());
     }
 
-    public void makeRecipe() {
-        nameField = new JTextField();
+    public void createTextFields() {
+        nameField = new JTextField(20);
         ingredientsField = new JTextField();
         instructionsField = new JTextField();
-        prepTimeField = new JTextField();
-        cookingTimeField = new JTextField();
-        caloriesField = new JTextField();
-        descriptionField = new JTextField();
-        addRecipeFrame = new JFrame();
-
+        prepTimeField = new JTextField(10);
+        cookingTimeField = new JTextField(10);
+        caloriesField = new JTextField(10);
+        descriptionField = new JTextField(20);
     }
 
     private void createAddRecipePanel() {
@@ -159,28 +155,34 @@ public class GraphicalUserInterface {
         panel.add(caloriesField);
         panel.add(new JLabel("Enter description of recipe:"));
         panel.add(descriptionField);
+        panel.setVisible(true);
 
-        cookbookFrame.add(panel, BorderLayout.LINE_END);
+        cookbookFrame.add(panel, BorderLayout.WEST);
     }
-
 
     private Recipe parseRecipe() {
         String name = nameField.getText();
-        String combinedIngredients = ingredientsField.getText();
-        String[] ingredients = toString().split(combinedIngredients);
-        String combinedInstructions = ingredientsField.getText();
-        String[] instructions = toString().split(combinedInstructions);
-        int prepTime = Integer.parseInt(prepTimeField.getText());
-        int cookingTime = Integer.parseInt(cookingTimeField.getText());
-        int calories = Integer.parseInt(caloriesField.getText());
+        String[] ingredients = ingredientsField.getText().split(",");
+        String[] instructions = instructionsField.getText().split(",");
+        int prepTime = 0;
+        if (!prepTimeField.getText().equals("")) {
+            prepTime = Integer.valueOf(prepTimeField.getText());
+        }
+        int cookingTime = 0;
+        if (!cookingTimeField.getText().equals("")) {
+            cookingTime = Integer.valueOf(cookingTimeField.getText());
+        }
+        int calories = 0;
+        if (!caloriesField.getText().equals("")) {
+            calories = Integer.valueOf(caloriesField.getText());
+        }
         String description = descriptionField.getText();
-        return new Recipe(name, List.of(ingredients), List.of(instructions), prepTime, cookingTime, calories,
-                description);
+        return new Recipe(name, List.of(ingredients), List.of(instructions),
+                prepTime, cookingTime, calories, description);
     }
 
-
     private void modifyRecipeAction() {
-        removeButton.addActionListener(new ActionListener() {
+        modifyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //modifyRecipe();
             }
@@ -206,9 +208,9 @@ public class GraphicalUserInterface {
 
     private void doView() {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; // Set grid x position to 0
-        gbc.gridy = GridBagConstraints.RELATIVE; // Start adding components from the next row
-        gbc.anchor = GridBagConstraints.WEST; // Align components to the left
+        gbc.gridx = 0;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.anchor = GridBagConstraints.WEST;
         for (Recipe r : listRec.getAllRecipes()) {
             JLabel recipesNames = new JLabel(r.getName() + "\n");
             this.outputPanel.add(recipesNames, gbc);

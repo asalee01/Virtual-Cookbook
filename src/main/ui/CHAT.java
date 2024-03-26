@@ -46,7 +46,8 @@ public class CHAT {
         panel.add(new JLabel("Enter description of recipe:"));
         panel.add(descriptionField);
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Enter Recipe Details", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(null, panel, "Enter Recipe Details",
+                JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             String name = nameField.getText();
             String combinedIngredients = ingredientsField.getText();
@@ -58,7 +59,8 @@ public class CHAT {
             int calories = parseInteger(caloriesField.getText());
             String description = descriptionField.getText();
 
-            return new Recipe(name, List.of(ingredients), List.of(instructions), prepTime, cookingTime, calories, description);
+            return new Recipe(name, List.of(ingredients), List.of(instructions), prepTime,
+                    cookingTime, calories, description);
         }
 
         // If canceled or closed, return null
@@ -69,7 +71,9 @@ public class CHAT {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Invalid input for time. Please enter a valid integer value.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "Invalid input for time. Please enter a valid integer value.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             return -1; // Return a default value indicating an error
         }
     }
