@@ -1,26 +1,18 @@
-{"recipes": [
-    {
-        "instructions": ["ins"],
-        "preparation time": 100,
-        "cooking time": 200,
-        "name": "Rec1",
-        "ingredients": ["ing"],
-        "description": "no",
-        "calories": 200
-    },
-    {
-        "instructions": [
-            "Ins1",
-            "ins2"
-        ],
-        "preparation time": 10,
-        "cooking time": 29,
-        "name": "Recipe2",
-        "ingredients": [
-            "ing1",
-            "ing2"
-        ],
-        "description": "no",
-        "calories": 300
-    }
-]}
+{"recipes": [{
+    "instructions": [
+        "Ins1",
+        "Ins2",
+        "Ins3"
+    ],
+    "preparation time": 100,
+    "cooking time": 200,
+    "name": "Test2",
+    "ingredients": [
+        "Ing1",
+        "Ing2",
+        "Ing3",
+        "Ing4"
+    ],
+    "description": "Yummy",
+    "calories": 300
+}]}

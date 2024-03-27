@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,13 +40,18 @@ public class GraphicalUserInterface {
     private JTextField caloriesField;
     private JTextField descriptionField;
     private JPanel panel;
+    private JPanel removeRecipePanel;
 
-    private JFrame addRecipeFrame;
+    private JTextField nameFieldRemove;
+
+    private JOptionPane outputs;
 
 
     public GraphicalUserInterface() {
+        outputs = new JOptionPane();
         listRec = new RecipeList();
         createButtons();
+        allActionButtons();
         createButtonPanel();
         createOutputPanel();
         createFrame();
@@ -74,10 +80,11 @@ public class GraphicalUserInterface {
         cookbookFrame.add(cookbookPanel, BorderLayout.LINE_START);
         cookbookFrame.add(outputPanel, BorderLayout.CENTER);
         cookbookFrame.setSize(750, 750);
-        cookbookFrame.setLocation(300, 300);
+        cookbookFrame.setLocation(300, 100);
         cookbookFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cookbookFrame.setTitle("Virtual Cookbook");
         cookbookFrame.setVisible(true);
+        cookbookFrame.setResizable(true);
         return cookbookFrame;
     }
 
@@ -93,7 +100,6 @@ public class GraphicalUserInterface {
         buttons.add(loadButton);
         buttons.add(saveButton);
         cookbookPanel.add(buttons);
-        allActionButtons();
         return cookbookPanel;
     }
 
@@ -114,53 +120,53 @@ public class GraphicalUserInterface {
     public void addRecipe() {
         createTextFields();
         createAddRecipePanel();
+        panel.validate();
+        panel.revalidate();
+        panel.repaint();
+
+
         JButton submitButton = new JButton("Submit");
         panel.add(submitButton, BorderLayout.SOUTH);
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Recipe recipe = parseRecipe();
-                if (recipe != null) {
-                    listRec.addRecipes(recipe);
-                }
-            }
-        });
+        submitButton.addActionListener(e -> parseRecipe());
+        System.out.println("Adding recipe");
     }
 
     public void createTextFields() {
-        nameField = new JTextField(20);
+        nameField = new JTextField();
         ingredientsField = new JTextField();
         instructionsField = new JTextField();
-        prepTimeField = new JTextField(10);
-        cookingTimeField = new JTextField(10);
-        caloriesField = new JTextField(10);
-        descriptionField = new JTextField(20);
+        prepTimeField = new JTextField();
+        cookingTimeField = new JTextField();
+        caloriesField = new JTextField();
+        descriptionField = new JTextField();
     }
 
     private void createAddRecipePanel() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-
         panel.add(new JLabel("Enter name of recipe:"));
+        nameField.setPreferredSize(new Dimension(1,1));
         panel.add(nameField);
         panel.add(new JLabel("Enter ingredients of recipe:"));
         panel.add(ingredientsField);
         panel.add(new JLabel("Enter instructions of recipe:"));
         panel.add(instructionsField);
-        panel.add(new JLabel("Enter prep time (minutes) of recipe:"));
+        panel.add(new JLabel("Enter prep time (minutes) (only numbers)of recipe:"));
         panel.add(prepTimeField);
-        panel.add(new JLabel("Enter cooking time (minutes) of recipe:"));
+        panel.add(new JLabel("Enter cooking time (minutes) (only numbers) of recipe:"));
         panel.add(cookingTimeField);
-        panel.add(new JLabel("Enter calories of recipe:"));
+        panel.add(new JLabel("Enter calories (only numbers) of recipe:"));
         panel.add(caloriesField);
         panel.add(new JLabel("Enter description of recipe:"));
         panel.add(descriptionField);
-        panel.setVisible(true);
 
-        cookbookFrame.add(panel, BorderLayout.WEST);
+        cookbookFrame.add(panel, BorderLayout.CENTER);
+        panel.setVisible(true);
     }
 
-    private Recipe parseRecipe() {
+
+    private void parseRecipe() {
+        System.out.println("Test");
         String name = nameField.getText();
         String[] ingredients = ingredientsField.getText().split(",");
         String[] instructions = instructionsField.getText().split(",");
@@ -177,8 +183,13 @@ public class GraphicalUserInterface {
             calories = Integer.valueOf(caloriesField.getText());
         }
         String description = descriptionField.getText();
-        return new Recipe(name, List.of(ingredients), List.of(instructions),
+        Recipe test = new Recipe(name, List.of(ingredients), List.of(instructions),
                 prepTime, cookingTime, calories, description);
+        listRec.addRecipes(test);
+
+        cookbookFrame.remove(panel);
+        outputs.createDialog("Recipe has been added!");
+        cookbookFrame.getContentPane().add(outputs);
     }
 
     private void modifyRecipeAction() {
@@ -189,21 +200,53 @@ public class GraphicalUserInterface {
         });
     }
 
+//    private void modifyRecipe() {
+//        System.out.println("Select which recipe you would like to change.");
+//        doView();
+//        System.out.println("\nEnter the name of the recipe you want to change");
+//        String name = input.next();
+//        System.out.println("\nTo modify please enter the name of the new recipe.");
+//        listRec.modifyRecipe(name, makeRecipe());
+//        System.out.println("Modifications have been made to the list of recipes!");
+//    }
+
+
     private void removeButtonAction() {
         removeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //removeRecipe();
+                doView();
+                createRemoveRecipePanel();
+                removeRecipePanel.validate();
+                removeRecipePanel.revalidate();
+                removeRecipePanel.repaint();
+                JButton submitButton = new JButton("Submit");
+
+                removeRecipe();
+                removeRecipePanel.add(submitButton, BorderLayout.SOUTH);
+                submitButton.addActionListener(e1 -> removeRecipe());
             }
         });
     }
 
+
+    public void removeRecipe() {
+        String name = nameFieldRemove.getText();
+        listRec.removeRecipeByName(name);
+    }
+
+    private void createRemoveRecipePanel() {
+        nameFieldRemove = new JTextField(20);
+        removeRecipePanel = new JPanel();
+        removeRecipePanel.setLayout(new BoxLayout(removeRecipePanel, BoxLayout.PAGE_AXIS));
+        removeRecipePanel.add(new JLabel("Enter name of recipe:"));
+        removeRecipePanel.add(nameFieldRemove);
+
+        cookbookFrame.add(removeRecipePanel, BorderLayout.CENTER);
+        cookbookFrame.setVisible(true);
+    }
+
     private void viewAllAction() {
-        showAllButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                doView();
-            }
-        });
+        showAllButton.addActionListener(e -> doView());
     }
 
     private void doView() {
@@ -220,30 +263,26 @@ public class GraphicalUserInterface {
     }
 
     private void searchButtonAction() {
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //searchRecipe();
-            }
-        });
+       // searchButton.addActionListener(e3 -> searchRecipes());
     }
 
     private void saveButtonAction() {
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //saveRecipes();
-            }
-        });
+        saveButton.addActionListener(e2 -> saveRecipes());
+    }
+
+    public void saveRecipes() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(listRec);
+            jsonWriter.close();
+            System.out.println("Saved to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     private void loadButtonAction() {
-        loadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadRecipes();
-            }
-        });
+        loadButton.addActionListener(e -> loadRecipes());
     }
 
     public void loadRecipes() {
