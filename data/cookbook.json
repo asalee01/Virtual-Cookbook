@@ -1,15 +1,1 @@
-{"recipes": [{
-    "instructions": [
-        "Crack egg",
-        " Add milk"
-    ],
-    "preparation time": 10,
-    "cooking time": 25,
-    "name": "Tester",
-    "ingredients": [
-        "milk",
-        "egg"
-    ],
-    "description": "French",
-    "calories": 305
-}]}
+{"recipes": []}

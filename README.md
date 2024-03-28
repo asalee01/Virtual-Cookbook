@@ -37,6 +37,17 @@ People who have a passion for cooking and students who are abroad and require he
 ## GUI using guidelines:
 - You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking on the 
   Add Recipe button on the choices panel, this will then prompt you enter specific types of text to each of the input
-  boxes. Once you feel like your recipe has been successfully added, you can click submit and it will have been added to
-  a Y (RecipeList).
-- You can generate the second required action related to the user story "removing multiple Xs"
+  boxes. Once you feel like your recipe has been successfully added, you can click submit, and it will have been added 
+  to a Y (RecipeList).
+- You can generate the second required action related to the user story "removing multiple Xs from a Y" by clicking on 
+  the Remove Recipe button on the choices panel, this will ask you enter the name of the recipe that needs to be removed
+  once you enter that it will be removed.
+- You can locate my visual component by looking at the top left of the initial panel, and you would see a logo of my
+  cookbook.
+- You can save my state by just clicking on the save button in the choices panel.
+- You can load my state by just clicking on the load button in the choices panel.
+- You can view all the recipes in my cookbook currently by clicking the Show All button.
+- You can search for recipes by ingredients and time by clicking the search button. You can ONLY type in one of the 
+  JTextFields, and then it will show you all the recipes in the cookbook that meet your requirement.
+- You can modify recipes by clicking the modify button and typing the recipe you want to change. Then you can modify 
+  that recipe to your choose and update the cookbook.
