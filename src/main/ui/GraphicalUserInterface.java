@@ -43,7 +43,7 @@ public class GraphicalUserInterface {
     private JPanel removeRecipePanel;
     private JTextField nameFieldRemove;
     private JTextArea recipeTextArea;
-
+    private JPanel modifyRecipePanel;
     private JPanel searchRecipePanel;
 
     //EFFECTS: creates a recipe list, all buttons and a cookbook and button panel and a cookbook frame. Also
@@ -219,15 +219,47 @@ public class GraphicalUserInterface {
         cookbookFrame.add(outputPanel, BorderLayout.CENTER);
     }
 
-//    private void modifyRecipe() {
-//        System.out.println("Select which recipe you would like to change.");
-//        doView();
-//        System.out.println("\nEnter the name of the recipe you want to change");
-//        String name = input.next();
-//        System.out.println("\nTo modify please enter the name of the new recipe.");
-//        listRec.modifyRecipe(name, makeRecipe());
-//        System.out.println("Modifications have been made to the list of recipes!");
-//    }
+    //EFFECTS: This should output all the recipe names in the list on top while the user is removing a recipe.
+    private void doViewModify() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridy = GridBagConstraints.RELATIVE;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        for (Recipe r : listRec.getAllRecipes()) {
+            JLabel recipesNames = new JLabel(r.getName());
+            this.removeRecipePanel.add(recipesNames, gbc);
+        }
+        removeRecipePanel.validate();
+        removeRecipePanel.revalidate();
+        removeRecipePanel.repaint();
+        this.removeRecipePanel.setVisible(true);
+    }
+
+    private void modifyRecipe() {
+        JLabel text = new JLabel("Select which recipe you would like to change.");
+        doViewModify();
+        JLabel text2 = new JLabel("\nEnter the name of the recipe you want to change");
+        JLabel text3 = new JLabel("\nTo modify please enter the name of the new recipe.");
+
+    }
+
+    private void createModifyRecipePanel() {
+        nameFieldRemove = new JTextField(20);
+        modifyRecipePanel = new JPanel();
+        removeRecipePanel.setLayout(new BoxLayout(removeRecipePanel, BoxLayout.PAGE_AXIS));
+        doViewRemove();
+        removeRecipePanel.add(new JLabel("Enter name of recipe:"));
+        removeRecipePanel.add(nameFieldRemove);
+
+        cookbookFrame.removeAll();
+        createFrame();
+        cookbookFrame.repaint();
+        cookbookFrame.remove(outputPanel);
+        cookbookFrame.add(removeRecipePanel, BorderLayout.CENTER);
+        removeRecipePanel.setVisible(true);
+    }
+
 
     //EFFECTS: Upon pressing this button, the user can modify an existing recipe by entering its name and then adding
     //         a new modified recipe.
@@ -330,6 +362,8 @@ public class GraphicalUserInterface {
         searchButton.addActionListener(e3 -> searchRecipe());
     }
 
+    //EFFECTS: creates a new panel, lets the user input their choice and outputs either the list of recipes or the
+    //         error messages.
     private void searchRecipe() {
         createSearchRecipePanel();
         searchRecipePanel.validate();
@@ -393,7 +427,8 @@ public class GraphicalUserInterface {
         }
     }
 
-    //EFFECTS: returns a list of recipes, it checks the user's input and
+    //EFFECTS: returns a list of recipes, it checks the user's input and determines which selection of the helper to be
+    //         used.
     public List<Recipe> selectRecipe() {
         List<Recipe> selectedRecs = new ArrayList<>();
         if (ingredientsField.getText().isEmpty() && cookingTimeField.getText().isEmpty()) {
@@ -410,6 +445,8 @@ public class GraphicalUserInterface {
         return selectedRecs;
     }
 
+    // MODIFIES: searchRecipePanel
+    //EFFECTS: searches the recipe depending on the selection by either time or ingredients.
     private List<Recipe> selectRecipeHelper(String selection) {
         if (selection.equals("i")) {
             List<String> ingredients = Arrays.asList(ingredientsField.getText().split(","));
