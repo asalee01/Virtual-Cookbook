@@ -24,6 +24,7 @@ public class GraphicalUserInterface {
     private JSonReader jsonReader;
     private JButton addButton;
     private JButton removeButton;
+    private JTextField nameFieldModify;
     private JButton showAllButton;
     private JButton modifyButton;
     private JButton searchButton;
@@ -205,7 +206,8 @@ public class GraphicalUserInterface {
                 prepTime, cookingTime, calories, description);
         listRec.addRecipes(test);
         resetFrameForAdd();
-        // want to output (name + " has been added!");
+        JOptionPane.showMessageDialog(cookbookFrame, name + " has been added!",
+                "Update", JOptionPane.PLAIN_MESSAGE);
     }
 
     //EFFECTS: Upon submitting recipe, this is responsible for making the addRecipe panel invisible and the output panel
@@ -219,6 +221,36 @@ public class GraphicalUserInterface {
         cookbookFrame.add(outputPanel, BorderLayout.CENTER);
     }
 
+    //EFFECTS: Upon pressing this button, the user can modify an existing recipe by entering its name and then adding
+    //         a new modified recipe.
+    private void modifyRecipeAction() {
+        modifyButton.addActionListener(e -> {
+            createModifyRecipePanel();
+            JButton submitButton = new JButton("Submit");
+            modifyRecipePanel.add(submitButton, BorderLayout.SOUTH);
+            submitButton.addActionListener(e2 -> modifyRecipe());
+        });
+    }
+
+    private void modifyRecipe() {
+
+    }
+
+    private void createModifyRecipePanel() {
+        nameFieldModify = new JTextField(20);
+        modifyRecipePanel = new JPanel();
+        modifyRecipePanel.setLayout(new BoxLayout(modifyRecipePanel, BoxLayout.PAGE_AXIS));
+        doViewModify();
+        modifyRecipePanel.add(new JLabel("Enter name of recipe:"));
+        modifyRecipePanel.add(nameFieldModify);
+        cookbookFrame.removeAll();
+        createFrame();
+        cookbookFrame.repaint();
+        cookbookFrame.remove(outputPanel);
+        cookbookFrame.add(modifyRecipePanel, BorderLayout.CENTER);
+        modifyRecipePanel.setVisible(true);
+    }
+
     //EFFECTS: This should output all the recipe names in the list on top while the user is removing a recipe.
     private void doViewModify() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -228,46 +260,14 @@ public class GraphicalUserInterface {
         gbc.anchor = GridBagConstraints.NORTHWEST;
         for (Recipe r : listRec.getAllRecipes()) {
             JLabel recipesNames = new JLabel(r.getName());
-            this.removeRecipePanel.add(recipesNames, gbc);
+            this.modifyRecipePanel.add(recipesNames, gbc);
         }
-        removeRecipePanel.validate();
-        removeRecipePanel.revalidate();
-        removeRecipePanel.repaint();
-        this.removeRecipePanel.setVisible(true);
+        modifyRecipePanel.validate();
+        modifyRecipePanel.revalidate();
+        modifyRecipePanel.repaint();
+        this.modifyRecipePanel.setVisible(true);
     }
 
-    private void modifyRecipe() {
-        JLabel text = new JLabel("Select which recipe you would like to change.");
-        doViewModify();
-        JLabel text2 = new JLabel("\nEnter the name of the recipe you want to change");
-        JLabel text3 = new JLabel("\nTo modify please enter the name of the new recipe.");
-
-    }
-
-    private void createModifyRecipePanel() {
-        nameFieldRemove = new JTextField(20);
-        modifyRecipePanel = new JPanel();
-        removeRecipePanel.setLayout(new BoxLayout(removeRecipePanel, BoxLayout.PAGE_AXIS));
-        doViewRemove();
-        removeRecipePanel.add(new JLabel("Enter name of recipe:"));
-        removeRecipePanel.add(nameFieldRemove);
-
-        cookbookFrame.removeAll();
-        createFrame();
-        cookbookFrame.repaint();
-        cookbookFrame.remove(outputPanel);
-        cookbookFrame.add(removeRecipePanel, BorderLayout.CENTER);
-        removeRecipePanel.setVisible(true);
-    }
-
-
-    //EFFECTS: Upon pressing this button, the user can modify an existing recipe by entering its name and then adding
-    //         a new modified recipe.
-    private void modifyRecipeAction() {
-        modifyButton.addActionListener(e -> {
-            //modifyRecipe();
-        });
-    }
 
     //EFFECTS: Upon pressing this button, the user will be taken to a new panel that allows them to enter a name of a
     //         recipe and remove it.
@@ -277,8 +277,6 @@ public class GraphicalUserInterface {
             JButton submitButton = new JButton("Submit");
             removeRecipePanel.add(submitButton, BorderLayout.SOUTH);
             submitButton.addActionListener(e1 -> removeRecipe());
-
-
         });
     }
 
@@ -296,7 +294,7 @@ public class GraphicalUserInterface {
         removeRecipePanel.validate();
         removeRecipePanel.revalidate();
         removeRecipePanel.repaint();
-        this.removeRecipePanel.setVisible(true);
+        removeRecipePanel.setVisible(true);
     }
 
     //EFFECTS: Upon pressing the submit button, this method removes the recipe and the removeRecipe panel and creates
@@ -309,7 +307,8 @@ public class GraphicalUserInterface {
         cookbookFrame.remove(removeRecipePanel);
         cookbookFrame.add(outputPanel, BorderLayout.CENTER);
         outputPanel.setVisible(true);
-        //want to output (name + " recipe has been removed")
+        JOptionPane.showMessageDialog(cookbookFrame, name + " has been removed.",
+                "Update", JOptionPane.PLAIN_MESSAGE);
     }
 
     //EFFECTS: creates a remove Recipe panel, which allows the user to enter a recipe name and remove it.
@@ -479,15 +478,11 @@ public class GraphicalUserInterface {
             jsonWriter.open();
             jsonWriter.write(listRec);
             jsonWriter.close();
-            //create a pop-up window.
-            JTextField saveMessage = new JTextField();
-            //saveMessage = ("Saved to " + JSON_STORE);
-            //outputPanel.add(saveMessage);
-            //re
-
-            //want to output ("Saved to " + JSON_STORE);
+            JOptionPane.showMessageDialog(cookbookFrame, "Saved to " + JSON_STORE,
+                    "Update", JOptionPane.PLAIN_MESSAGE);
         } catch (FileNotFoundException e) {
-            //want to output something in console
+            JOptionPane.showMessageDialog(cookbookFrame, "Unable to write to file: " + JSON_STORE,
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -498,16 +493,17 @@ public class GraphicalUserInterface {
 
     //EFFECTS: this method is responsible for reading Json file.
     public void loadRecipes() {
-        cookbookFrame.removeAll();
-        createFrame();
-        cookbookFrame.repaint();
         try {
             listRec = jsonReader.read();
             if (listRec.getSize() == 0) {
-                //want to output ("No recipes saved");
+                JOptionPane.showMessageDialog(cookbookFrame, "No recipes present in saved file!!",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException e) {
-            //want to output something in console
+            {
+                JOptionPane.showMessageDialog(cookbookFrame, "Unable to read from file: " + JSON_STORE,
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

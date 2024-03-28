@@ -1,12 +1,15 @@
 {"recipes": [{
-    "instructions": ["wegwg"],
-    "preparation time": 12,
-    "cooking time": 35,
+    "instructions": [
+        "Crack egg",
+        " Add milk"
+    ],
+    "preparation time": 10,
+    "cooking time": 25,
     "name": "Tester",
     "ingredients": [
         "milk",
         "egg"
     ],
-    "description": "sddg",
-    "calories": 35
+    "description": "French",
+    "calories": 305
 }]}

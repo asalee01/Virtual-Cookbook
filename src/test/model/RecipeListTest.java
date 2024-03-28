@@ -236,6 +236,20 @@ public class RecipeListTest {
     }
 
     @Test
+    public void testSearchByIngredientsManyRecipesDuplicateRecipe() {
+        List<Recipe> recipesTime = new ArrayList<>();
+        List<String> ingredientsFiltered = new ArrayList<>();
+        recipes.addRecipes(recipe1);
+        recipes.addRecipes(recipe2);
+        recipes.addRecipes(recipe3);
+        ingredientsFiltered.add("Egg");
+        ingredientsFiltered.add("Bread");
+        recipesTime.add(recipe1);
+        recipesTime.add(recipe2);
+        assertEquals(recipesTime, recipes.searchByIngredients(ingredientsFiltered));
+    }
+
+    @Test
     public void testGetAllRecipe() {
         recipes.addRecipes(recipe1);
         recipes.addRecipes(recipe2);
