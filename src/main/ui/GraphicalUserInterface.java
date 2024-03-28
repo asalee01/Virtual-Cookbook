@@ -629,3 +629,11 @@ public class GraphicalUserInterface {
         }
     }
 }
+
+//References: I had many, but I tried to track back to everything that I used.
+// https://stackoverflow.com/questions/21375255/
+// jpanel-positions-and-sizes-changes-according-to-screensize/21376596#21376596
+// https://www.tutorialspoint.com/swingexamples/show_error_message_dialog.htm
+// IMAGE ORIGIN: picsart studios built-in stickers.
+// https://stackoverflow.com/questions/2939617/how-to-merge-joptionpane-and-frame-into-one
+//https://stackoverflow.com/questions/13840048/swing-gui-output-does-not-show
