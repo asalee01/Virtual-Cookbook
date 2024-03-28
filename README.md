@@ -32,3 +32,11 @@ People who have a passion for cooking and students who are abroad and require he
 - As a user, I would want to view all my recipes.
 - As a user, I want to save all the recipes I added and modified.
 - As a user, I want to be able to add recipes alongside the ones I already have saved.
+
+
+## GUI using guidelines:
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking on the 
+  Add Recipe button on the choices panel, this will then prompt you enter specific types of text to each of the input
+  boxes. Once you feel like your recipe has been successfully added, you can click submit and it will have been added to
+  a Y (RecipeList).
+- You can generate the second required action related to the user story "removing multiple Xs"

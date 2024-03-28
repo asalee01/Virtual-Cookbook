@@ -78,7 +78,7 @@ public class RecipeList implements Writable {
         List<Recipe> filteredIngredientsRecipes = new ArrayList<>();
         for (String ing : i) {
             for (Recipe r : recipes) {
-                if (r.getIngredients().contains(ing)) {
+                if (r.getIngredients().contains(ing) && !filteredIngredientsRecipes.contains(r)) {
                     filteredIngredientsRecipes.add(r);
                 }
             }

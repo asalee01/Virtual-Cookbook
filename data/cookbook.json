@@ -1,18 +1,12 @@
 {"recipes": [{
-    "instructions": [
-        "Ins1",
-        "Ins2",
-        "Ins3"
-    ],
-    "preparation time": 100,
-    "cooking time": 200,
-    "name": "Test2",
+    "instructions": ["wegwg"],
+    "preparation time": 12,
+    "cooking time": 35,
+    "name": "Tester",
     "ingredients": [
-        "Ing1",
-        "Ing2",
-        "Ing3",
-        "Ing4"
+        "milk",
+        "egg"
     ],
-    "description": "Yummy",
-    "calories": 300
+    "description": "sddg",
+    "calories": 35
 }]}
