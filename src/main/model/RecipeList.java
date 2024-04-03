@@ -24,6 +24,7 @@ public class RecipeList implements Writable {
         if (!recipes.contains(r)) {
             recipes.add(r);
         }
+        EventLog.getInstance().logEvent(new Event("Recipe has been added!"));
     }
 
 
@@ -37,6 +38,7 @@ public class RecipeList implements Writable {
                 break;
             }
         }
+        EventLog.getInstance().logEvent(new Event("A recipe has been removed!"));
     }
 
 
@@ -55,6 +57,7 @@ public class RecipeList implements Writable {
         } else {
             recipes.set(index, newRecipe);
         }
+        EventLog.getInstance().logEvent(new Event("A recipe has been modified."));
     }
 
     //REQUIRES: time >= 0.
@@ -67,6 +70,7 @@ public class RecipeList implements Writable {
                 filteredTimeRecipes.add(r);
             }
         }
+        EventLog.getInstance().logEvent(new Event("Searched for recipes by cooking time"));
         return filteredTimeRecipes;
     }
 
@@ -83,6 +87,7 @@ public class RecipeList implements Writable {
                 }
             }
         }
+        EventLog.getInstance().logEvent(new Event("Searched for recipes by ingredients."));
         return filteredIngredientsRecipes;
     }
 
@@ -96,6 +101,7 @@ public class RecipeList implements Writable {
     }
 
     public List<Recipe> getAllRecipes() {
+        EventLog.getInstance().logEvent(new Event("Extracted all recipes in cookbook."));
         return recipes;
     }
 

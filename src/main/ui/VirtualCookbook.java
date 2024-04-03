@@ -96,7 +96,7 @@ public class VirtualCookbook {
 
     //MODIFIES: this
     //EFFECTS: processes the input of adding a recipe by making the user enter a new recipe.
-    public void addRecipe() {
+    private void addRecipe() {
         listRec.addRecipes(makeRecipe());
         System.out.println("Recipe has been added!");
     }
@@ -105,7 +105,7 @@ public class VirtualCookbook {
     //MODIFIES: this
     //EFFECTS: It allows the user to remove the recipe of his choice, firstly all the recipes in the cookbook will be
     //         shown and then the user can enter one of the recipe names and remove it.
-    public void removeRecipe() {
+    private void removeRecipe() {
         System.out.println("Select which recipe you want to remove.");
         doView();
         String name = input.next();
@@ -118,7 +118,7 @@ public class VirtualCookbook {
     //EFFECTS: Gives user all the recipe names in the cookbook, then asks user to pick a recipe from that. Then,
     //         prompts the user to create a new recipe to modify the recipe. (They could copy and paste the whole recipe
     //         and make all the necessary modifications.)
-    public void modifyRecipe() {
+    private void modifyRecipe() {
         System.out.println("Select which recipe you would like to change.");
         doView();
         System.out.println("\nEnter the name of the recipe you want to change");
@@ -131,7 +131,7 @@ public class VirtualCookbook {
 
     //EFFECTS: this feature allows user to search for a recipe by a certain requirement, it outputs all the recipes that
     //         fulfill the requirement.
-    public void searchRecipe() {
+    private void searchRecipe() {
         List<Recipe> selectedRecipes = selectRecipe();
         if (selectedRecipes.isEmpty()) {
             System.out.println("No Recipes found!! Sorry!!");
@@ -143,7 +143,7 @@ public class VirtualCookbook {
 
 
     //EFFECTS: outputs all the recipes' names in the cookbook.
-    public void doView() {
+    private void doView() {
         System.out.println("Here are all your recipes.");
         for (Recipe r : listRec.getAllRecipes()) {
             System.out.println(r.getName());
@@ -159,7 +159,7 @@ public class VirtualCookbook {
 
     //MODIFIES: selectedRecs (list of recipes)
     //EFFECTS: It checks whether the user's input is one of the two, then calls for a helper.
-    public List<Recipe> selectRecipe() {
+    private List<Recipe> selectRecipe() {
         List<Recipe> selectedRecs = new ArrayList<>();
         String selection = "";
         while (!(selection.equals("i") || selection.equals("t"))) {
@@ -272,7 +272,7 @@ public class VirtualCookbook {
     //MODIFIES: recipe
     //EFFECTS: It creates a new recipe by prompting the reader to enter its name, ingredients, instructions, prep time,
     //         cooking time, calories, and a brief description.
-    public Recipe makeRecipe() {
+    private Recipe makeRecipe() {
         System.out.println("Enter name of recipe");
         String name = input.next();
         System.out.println("Enter ingredients of recipe");
@@ -298,7 +298,7 @@ public class VirtualCookbook {
     }
 
     // EFFECTS: saves the workroom to file
-    public void saveRecipes() {
+    private void saveRecipes() {
         try {
             jsonWriter.open();
             jsonWriter.write(listRec);
@@ -311,7 +311,7 @@ public class VirtualCookbook {
 
     // MODIFIES: this
     // EFFECTS: loads workroom from file
-    public void loadRecipes() {
+    private void loadRecipes() {
         try {
             listRec = jsonReader.read();
             System.out.println("Loaded saved recipes");

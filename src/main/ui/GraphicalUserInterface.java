@@ -1,12 +1,12 @@
 package ui;
 
-import model.Recipe;
-import model.RecipeList;
-import persistence.JSonReader;
-import persistence.JSonWriter;
+import model.*;
+import persistence.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ import java.util.List;
 public class GraphicalUserInterface {
     //All the fields in the class.
     private static final String JSON_STORE = "./data/cookbook.json";
+    private final JSonWriter jsonWriter;
+    private final JSonReader jsonReader;
     private RecipeList listRec;
-    private JSonWriter jsonWriter;
-    private JSonReader jsonReader;
     private JButton addButton;
     private JButton removeButton;
     private JTextField nameFieldModify;
@@ -89,20 +89,26 @@ public class GraphicalUserInterface {
 
     //EFFECTS: creates the GUI frame that the user will be shown upon running named "Virtual Cookbook", has the cookbook
     //         and output panel added to it.
-    public void createFrame() {
+    private void createFrame() {
         cookbookFrame = new JFrame();
         cookbookFrame.add(cookbookPanel, BorderLayout.LINE_START);
         cookbookFrame.add(outputPanel, BorderLayout.CENTER);
         cookbookFrame.setSize(750, 750);
         cookbookFrame.setLocation(300, 100);
         cookbookFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        cookbookFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                close(e);
+            }
+        });
         cookbookFrame.setTitle("Virtual Cookbook");
         cookbookFrame.setVisible(true);
         cookbookFrame.setResizable(true);
     }
 
     //EFFECTS: creates a new JPanel that is the buttons panel, with a logo and all the buttons.
-    public void createButtonPanel() {
+    private void createButtonPanel() {
         cookbookPanel = new JPanel();
         ImageIcon originalIcon = new ImageIcon(
                 "C:\\Users\\athif\\IdeaProjects\\CPSC210_Project\\src\\main\\Images\\Untitled Project.jpg");
@@ -144,7 +150,7 @@ public class GraphicalUserInterface {
 
     //EFFECTS: creates a new panel that allows the user to enter their new recipe and submit it, once submitted they are
     //         returned to the startup screen.
-    public void addRecipe() {
+    private void addRecipe() {
         createTextFields();
         createAddRecipePanel();
         panel.validate();
@@ -157,7 +163,7 @@ public class GraphicalUserInterface {
     }
 
     //EFFECTS: creates the necessary text fields for the user to add their recipe.
-    public void createTextFields() {
+    private void createTextFields() {
         nameField = new JTextField();
         ingredientsField = new JTextField();
         instructionsField = new JTextField();
@@ -285,7 +291,7 @@ public class GraphicalUserInterface {
     }
 
     //EFFECTS: creates the necessary text fields for the user to modify their recipe.
-    public void createTextFieldsModify() {
+    private void createTextFieldsModify() {
         nameFieldModifies = new JTextField();
         ingredientsFieldModify = new JTextField();
         instructionsFieldModify = new JTextField();
@@ -408,7 +414,7 @@ public class GraphicalUserInterface {
     //MODIFIES: cookbookFrame
     //EFFECTS: Upon pressing the submit button, this method removes the recipe and the removeRecipe panel and creates
     //         a new output panel.
-    public void removeRecipe() {
+    private void removeRecipe() {
         String name = nameFieldRemove.getText();
         listRec.removeRecipeByName(name);
 
@@ -533,7 +539,7 @@ public class GraphicalUserInterface {
     }
 
     //EFFECTS: handles output cases for the searchRecipe() method
-    public void searchRecipes() {
+    private void searchRecipes() {
         List<Recipe> selectedRecipes = selectRecipe();
         if (selectedRecipes.isEmpty()) {
             recipeTextArea.setText("No Recipes found!! Sorry!!");
@@ -548,7 +554,7 @@ public class GraphicalUserInterface {
 
     //EFFECTS: returns a list of recipes, it checks the user's input and determines which selection of the helper to be
     //         used.
-    public List<Recipe> selectRecipe() {
+    private List<Recipe> selectRecipe() {
         List<Recipe> selectedRecs = new ArrayList<>();
         if (ingredientsField.getText().isEmpty() && cookingTimeField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(cookbookFrame, "Please enter ingredients or cooking time.");
@@ -591,7 +597,7 @@ public class GraphicalUserInterface {
     }
 
     //EFFECTS: this method is responsible for writing the json file for the user.
-    public void saveRecipes() {
+    private void saveRecipes() {
         cookbookFrame.removeAll();
         cookbookFrame.dispose();
         createFrame();
@@ -614,7 +620,7 @@ public class GraphicalUserInterface {
     }
 
     //EFFECTS: this method is responsible for reading Json file.
-    public void loadRecipes() {
+    private void loadRecipes() {
         try {
             listRec = jsonReader.read();
             if (listRec.getSize() == 0) {
@@ -628,12 +634,22 @@ public class GraphicalUserInterface {
             }
         }
     }
+
+    //EFFECTS: prints out all the log events that have occurred when the cookbook is run.
+    public void close(WindowEvent e) {
+        for (model.Event e1 : model.EventLog.getInstance()) {
+            System.out.println(e1);
+        }
+    }
+
 }
 
-//References: I had many, but I tried to track back to everything that I used.
+
+// References: I had many, but I tried to track back to everything that I used.
 // https://stackoverflow.com/questions/21375255/
 // jpanel-positions-and-sizes-changes-according-to-screensize/21376596#21376596
 // https://www.tutorialspoint.com/swingexamples/show_error_message_dialog.htm
 // IMAGE ORIGIN: picsart studios built-in stickers.
 // https://stackoverflow.com/questions/2939617/how-to-merge-joptionpane-and-frame-into-one
 //https://stackoverflow.com/questions/13840048/swing-gui-output-does-not-show
+//https://docs.oracle.com/javase/tutorial/uiswing/events/windowlistener.html

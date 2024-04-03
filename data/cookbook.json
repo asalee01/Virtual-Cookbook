@@ -1,1 +1,37 @@
-{"recipes": []}
+{"recipes": [
+    {
+        "instructions": [
+            "ins1",
+            "ins2",
+            "ins3"
+        ],
+        "preparation time": 100,
+        "cooking time": 300,
+        "name": "Recipe1",
+        "ingredients": [
+            "ing1",
+            "ing2",
+            "ing3"
+        ],
+        "description": "food",
+        "calories": 1000
+    },
+    {
+        "instructions": ["egfwg"],
+        "preparation time": 123,
+        "cooking time": 432,
+        "name": "Recipe234",
+        "ingredients": ["wefww"],
+        "description": "desc",
+        "calories": 3424
+    },
+    {
+        "instructions": ["erger"],
+        "preparation time": 23,
+        "cooking time": 43,
+        "name": "Recipename",
+        "ingredients": ["ergerg"],
+        "description": "yay",
+        "calories": 533
+    }
+]}

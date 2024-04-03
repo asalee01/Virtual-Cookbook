@@ -51,3 +51,24 @@ People who have a passion for cooking and students who are abroad and require he
   JTextFields, and then it will show you all the recipes in the cookbook that meet your requirement.
 - You can modify recipes by clicking the modify button and typing the recipe you want to change. Then you can modify 
   that recipe to your choose and update the cookbook.
+
+## Phase 4 Task 2:
+- Wed Apr 03 12:59:45 PDT 2024
+- Recipe has been added!
+- Wed Apr 03 12:59:45 PDT 2024
+- Recipe has been added!
+- Wed Apr 03 12:59:45 PDT 2024
+- Extracted all recipes in cookbook.
+- Wed Apr 03 12:59:45 PDT 2024
+- Extracted all recipes in cookbook.
+- Wed Apr 03 13:00:04 PDT 2024
+- Recipe has been added!
+- Wed Apr 03 13:00:12 PDT 2024
+- Extracted all recipes in cookbook.
+- Wed Apr 03 13:00:28 PDT 2024
+- A recipe has been modified.
+- Wed Apr 03 13:00:44 PDT 2024
+- Searched for recipes by ingredients.
+- Wed Apr 03 13:00:51 PDT 2024
+- Searched for recipes by cooking time.
+
