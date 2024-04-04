@@ -72,3 +72,16 @@ People who have a passion for cooking and students who are abroad and require he
 - Wed Apr 03 13:00:51 PDT 2024
 - Searched for recipes by cooking time.
 
+## Phase 4 Task 3:
+- In my GraphicalUserInterface class in UI, I noticed that I have a lot of duplicated code that could cause high
+  coupling between my methods in the GUI. If I had more time, I would have implemented one general method with areas 
+  with "gaps" that can be modified for every instance being used. Also, I noticed that my methods in both the GUI and
+  console-based UI has very large method bodies that could make it very hard for the reader to understand and possibly
+  debug my code, I would decrease the size of the methods to ensure each method has only one function and add more 
+  detailed comments about the use of every method. Also, I believe that my GUI class can be separated into many 
+  subclasses, i.e. a class for creating the frame and adding specific panels with their methods, this would help me 
+  implement the single-responsibility principle we learned in previous classes. Also, I could maybe use less global
+  fields, although my current implementation requires these fields to be global, I believe there is a way to access
+  these fields by improving my implementation, i.e. making it more concise to fit everything into 1 method. 
+- In short, to improve this project I should create more methods with more readable code and ensure that the design
+  patterns we learned are somewhat implemented.

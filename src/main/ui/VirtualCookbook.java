@@ -17,8 +17,8 @@ public class VirtualCookbook {
     private static final String JSON_STORE = "./data/cookbook.json";
     private Scanner input;
     private RecipeList listRec;
-    private JSonWriter jsonWriter;
-    private JSonReader jsonReader;
+    private final JSonWriter jsonWriter;
+    private final JSonReader jsonReader;
 
     //EFFECTS: runs the cookbook instance.
     public VirtualCookbook() {
@@ -211,7 +211,6 @@ public class VirtualCookbook {
             String result = input.next();
             if (result.equals("y")) {
                 System.out.println("Add ingredients:");
-                ingredient = input.next().toLowerCase();
             } else {
                 keepGoing = false;
             }
